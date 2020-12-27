@@ -25,7 +25,8 @@ client.on('message', (message) => {
 				files: [ catcher.ticker.url ]
 			})
 			.then((msg) => {
-				msg.react('❌');
+				console.log("Stripped reaction X");
+				//msg.react('❌');
 			});
 	} else if (message.content == '$help') {
 		let m =
@@ -48,7 +49,8 @@ client.on('message', (message) => {
 					files: [ 'https://elite.finviz.com/fx_image.ashx?' + ticker + 'usd_' + timePeriod + '_l.png' ]
 				})
 				.then((msg) => {
-					msg.react('❌');
+					console.log("Stripped reaction X");
+					//msg.react('❌');
 				});
 		}
 	} else if (message.content.includes('/') && message.content.indexOf('/') != 1) {
@@ -153,7 +155,8 @@ client.on('message', (message) => {
 					)
 				)
 				.then((msg) => {
-					msg.react('❌');
+					//msg.react('❌');
+					console.log("Sent an X reaction, not sure why")
 				});
 		}
 	}
