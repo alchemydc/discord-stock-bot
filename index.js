@@ -30,11 +30,9 @@ client.on('message', (message) => {
 			});
 	} else if (message.content == '$help') {
 		let m =
-			'fsb-ticker. Developed by BuffMan \n\n Example commands: \n `$avgo`\n `$aapl w`\n `$tsla d rsi macd`\n `$spy line`\n `$/es`\n `$.btc`\n `$usd/jpy w`\n `$sectors ytd`\n\n' +
-			'**Currently Scheduled Features**\n' +
-			'- RTF Description be more detailed\n\n' +
-			'_Contact BuffMan for more info and any feature requests_\n';
-		message.channel.send(formatFancyMessage(m));
+			'fsb-ticker. Developed by BuffMan \n\n Example commands: \n `$avgo`\n `$aapl w`\n `$tsla d rsi macd`\n `$spy line`\n `$/es`\n `$.btc`\n `$usd/jpy w`\n `$sectors ytd`\n\n';
+		//message.channel.send(formatFancyMessage(m));
+		message.channel.send(m);
 	} else if (message.content.startsWith('$.')) {
 		console.log('CRYPTO');
 		let ticker = message.content.toLowerCase().split(' ')[0].substring(2);
@@ -75,7 +73,8 @@ client.on('message', (message) => {
 					]
 				})
 				.then((msg) => {
-					msg.react('❌');
+					console.log("Stripped react X");
+					//msg.react('❌');
 				});
 		}
 	} else if (message.content.startsWith('$sectors')) {
@@ -112,7 +111,8 @@ client.on('message', (message) => {
 					)
 				)
 				.then((msg) => {
-					msg.react('❌');
+					console.log("Stripped react X");
+					//msg.react('❌');
 				});
 		}
 	} else if (message.content.startsWith('$')) {
