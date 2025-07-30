@@ -1,4 +1,4 @@
-FROM node:12.16
+FROM node:20
 
 RUN mkdir /app && \
     groupadd app && \
