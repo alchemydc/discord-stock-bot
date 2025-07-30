@@ -123,5 +123,6 @@ I made this for a private stock trading discord group I run. This was initially 
 
 If preferred, you can also build and deploy as a Docker container.
 
-1. `docker build -t stockbot .`
-2. `docker run -e BOT_TOKEN="mybottokenaaaaaaaaaaaaaaa" -e CHANNEL_ID="123412341234" stockbot`
+0. Edit .env and with your BOT_TOKEN and CHANNEL_ID
+1. `docker compose up`
+2. profit
