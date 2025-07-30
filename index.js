@@ -25,15 +25,38 @@ client.on('message', (message) => {
 				files: [ catcher.ticker.url ]
 			})
 			.then((msg) => {
-				msg.react('❌');
+				console.log("Stripped reaction X");
+				//msg.react('❌');
 			});
 	} else if (message.content == '$help') {
 		let m =
-			'fsb-ticker. Developed by BuffMan \n\n Example commands: \n `$avgo`\n `$aapl w`\n `$tsla d rsi macd`\n `$spy line`\n `$/es`\n `$.btc`\n `$usd/jpy w`\n `$sectors ytd`\n\n' +
-			'**Currently Scheduled Features**\n' +
-			'- RTF Description be more detailed\n\n' +
-			'_Contact BuffMan for more info and any feature requests_\n';
-		message.channel.send(formatFancyMessage(m));
+			'fsb-ticker. Developed by BuffMan \n\n Example commands: \n `$avgo`\n `$aapl w`\n `$tsla d rsi macd`\n `$spy line`\n `$/es`\n `$.btc`\n `$usd/jpy w`\n `$sectors ytd`\n\n';
+		message.channel.send(m);
+	} else if (message.content.startsWith('$.')) {
+		// get custom crypto prices from Messari API
+		// todo: error handling
+	    let ticker = message.content.toLowerCase().split(' ')[0].substring(2);
+		const got = require('got');
+		got.get("https://data.messari.io/api/v1/assets/" + ticker + "/metrics")
+		.then(response => {
+			jsonBody = JSON.parse(response.body);
+			let tickerPrice = jsonBody.data.market_data.price_usd.toFixed(2);
+			let tickerName = jsonBody.data.name;
+			console.log(jsonBody.data.market_data.percent_change_usd_last_24_hours);
+			let pctChange24 = Math.round(jsonBody.data.market_data.percent_change_usd_last_24_hours);
+			let movement = "";
+			if (pctChange24 >= 0) {
+				console.log("pctChange24 is >= 0, movement is up")
+				movement = "up";
+			} 
+			else {
+				console.log("pctChange24 is < 0, movement is down")
+				movement = "down";
+			}
+			let m = tickerName + ': $' + tickerPrice + ' ' + movement + ' ' + pctChange24 + "%" + ' in the last 24 hours';
+			message.channel.send(m);
+		});
+
 	} else if (message.content.startsWith('$.')) {
 		console.log('CRYPTO');
 		let ticker = message.content.toLowerCase().split(' ')[0].substring(2);
@@ -48,7 +71,8 @@ client.on('message', (message) => {
 					files: [ 'https://elite.finviz.com/fx_image.ashx?' + ticker + 'usd_' + timePeriod + '_l.png' ]
 				})
 				.then((msg) => {
-					msg.react('❌');
+					console.log("Stripped reaction X");
+					//msg.react('❌');
 				});
 		}
 	} else if (message.content.includes('/') && message.content.indexOf('/') != 1) {
@@ -73,7 +97,8 @@ client.on('message', (message) => {
 					]
 				})
 				.then((msg) => {
-					msg.react('❌');
+					console.log("Stripped react X");
+					//msg.react('❌');
 				});
 		}
 	} else if (message.content.startsWith('$sectors')) {
@@ -110,7 +135,8 @@ client.on('message', (message) => {
 					)
 				)
 				.then((msg) => {
-					msg.react('❌');
+					console.log("Stripped react X");
+					//msg.react('❌');
 				});
 		}
 	} else if (message.content.startsWith('$')) {
@@ -153,7 +179,8 @@ client.on('message', (message) => {
 					)
 				)
 				.then((msg) => {
-					msg.react('❌');
+					//msg.react('❌');
+					console.log("Sent an X reaction, not sure why")
 				});
 		}
 	}
